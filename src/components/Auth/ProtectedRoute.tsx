@@ -7,7 +7,6 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -17,15 +16,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
       } else {
         setIsAuthenticated(false);
       }
-      setLoading(false);
     };
 
     checkAuth();
   }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return isAuthenticated ? element : <Navigate to="/login" />;
 };
